@@ -32,7 +32,7 @@ services:
   web:
     image: nginx
     ports:
-      - "$WEB_HTTP_HOST_PORT:80"
+      - "$WEB_HTTP_HOST_PORT:3315"
     volumes:
       - "./nginx/conf.d/:/etc/nginx/conf.d/"
     depends_on:
