@@ -1,4 +1,9 @@
-*
-!Dockerfile
-!target/Biblivre6
-!scripts/
+.git
+.github
+.mvn
+.settings
+.env
+target
+src/main/spa-frontend/node
+src/main/spa-frontend/node_modules
+src/main/spa-frontend/dist

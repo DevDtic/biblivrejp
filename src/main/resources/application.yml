@@ -6,6 +6,9 @@ logging:
     org:
 server:
   port: 8090
+  servlet:
+    context-path: /bibliotecajp
+  forward-headers-strategy: framework
 
 spring:
   mvc:

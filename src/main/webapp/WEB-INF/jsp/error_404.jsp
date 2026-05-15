@@ -15,12 +15,8 @@
 	<meta name="google" content="notranslate" />
 	<title>Biblivre IV</title>
 	<link rel="shortcut icon" type="image/x-icon" href="<%= contextPath %>/static/images/favicon.ico" />
-	<static:stylesheet fileName="static/styles/biblivre.core.css" />
+	<static:stylesheet fileName="biblivre.core.css" />
 </head>
-
-<%
-    String contextPath = request.getContextPath();
-%>
 
 <body>
 	<div id="header">

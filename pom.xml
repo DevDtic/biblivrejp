@@ -633,10 +633,10 @@
 &lt;html lang="en"&gt;
 &lt;head&gt;
 	&lt;meta charset="UTF-8" /&gt;
-	&lt;link rel="icon" type="image/svg+xml" href="/static/spa/vite.svg" /&gt;
+	&lt;link rel="icon" type="image/svg+xml" href="[[${contextPath}]]/static/spa/vite.svg" /&gt;
 	&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
 	&lt;title&gt;Biblivre SPA&lt;/title&gt;
-	&lt;script type="module" crossorigin src="/static/spa/${js.bundle}"&gt;&lt;/script&gt;
+	&lt;script type="module" crossorigin src="[[${contextPath}]]/static/spa/${js.bundle}"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;
 	&lt;div id="root"&gt;&lt;/div&gt;

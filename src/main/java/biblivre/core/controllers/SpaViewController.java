@@ -1,5 +1,6 @@
 package biblivre.core.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SpaViewController {
 
     @GetMapping("/spa/**")
-    public String spaPage(Model model) {
+    public String spaPage(Model model, HttpServletRequest request) {
+        model.addAttribute("contextPath", request.getContextPath());
+
         return "spa";
     }
 }
