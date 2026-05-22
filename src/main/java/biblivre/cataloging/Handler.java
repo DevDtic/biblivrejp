@@ -26,6 +26,10 @@ import biblivre.cataloging.bibliographic.PaginableRecordBO;
 import biblivre.cataloging.enums.RecordDatabase;
 import biblivre.cataloging.enums.RecordType;
 import biblivre.cataloging.vocabulary.VocabularyRecordDTO;
+import biblivre.cataloging.z3950.Z3950AddressDAO;
+import biblivre.cataloging.z3950.Z3950AddressDTO;
+import biblivre.cataloging.z3950.Z3950SearchException;
+import biblivre.cataloging.z3950.Z3950SearchService;
 import biblivre.core.AbstractHandler;
 import biblivre.core.ExtendedRequest;
 import biblivre.core.ExtendedResponse;
@@ -54,6 +58,10 @@ public class Handler extends AbstractHandler {
     private Map<RecordType, PaginableRecordBO> paginableRecordBOs;
     private IndexingBO indexingBO;
     private ImportBO importBO;
+    private Z3950AddressDAO z3950AddressDAO;
+    private Z3950SearchService z3950SearchService;
+
+    private static final int Z3950_IMPORT_SEARCH_LIMIT = 100;
 
     private static final Logger logger = LoggerFactory.getLogger(Handler.class);
 
@@ -79,37 +87,7 @@ public class Handler extends AbstractHandler {
 
             ImportDTO list = importBO.loadFromFile(() -> Files.newInputStream(tmpFile));
 
-            if (list != null) {
-                List<String> isbnList = new ArrayList<>();
-                List<String> issnList = new ArrayList<>();
-                List<String> isrcList = new ArrayList<>();
-
-                for (RecordDTO dto : list.getRecordList()) {
-                    if (dto instanceof BiblioRecordDTO biblioRecordDTO) {
-
-                        if (StringUtils.isNotBlank(biblioRecordDTO.getIsbn())) {
-                            isbnList.add(biblioRecordDTO.getIsbn());
-                        } else if (StringUtils.isNotBlank(biblioRecordDTO.getIssn())) {
-                            issnList.add(biblioRecordDTO.getIssn());
-                        } else if (StringUtils.isNotBlank(biblioRecordDTO.getIsrc())) {
-                            isrcList.add(biblioRecordDTO.getIsrc());
-                        }
-                    }
-                    // TODO: Completar para autoridades e vocabulário
-                }
-
-                if (isbnList.size() > 0) {
-                    list.setFoundISBN(indexingBO.searchExactTerms(RecordType.BIBLIO, 5, isbnList));
-                }
-
-                if (issnList.size() > 0) {
-                    list.setFoundISSN(indexingBO.searchExactTerms(RecordType.BIBLIO, 6, issnList));
-                }
-
-                if (isrcList.size() > 0) {
-                    list.setFoundISRC(indexingBO.searchExactTerms(RecordType.BIBLIO, 7, isrcList));
-                }
-            }
+            populateExistingIdentifiers(list);
 
             if (list == null) {
                 this.setMessage(ActionResult.WARNING, "cataloging.import.error.invalid_file");
@@ -148,6 +126,69 @@ public class Handler extends AbstractHandler {
         }
 
         putOpt("data", dto.toJSONObject());
+    }
+
+    public void importSearch(ExtendedRequest request, ExtendedResponse response) {
+        int id = request.getInteger("search_server", 0);
+        String attribute = request.getString("search_attribute");
+        String query = request.getString("search_query");
+
+        Z3950AddressDTO address = z3950AddressDAO.get(id);
+
+        try {
+            Path marcFile =
+                    z3950SearchService.search(
+                            address, attribute, query, Z3950_IMPORT_SEARCH_LIMIT);
+            ImportDTO list = importBO.loadFromFile(() -> Files.newInputStream(marcFile));
+
+            populateExistingIdentifiers(list);
+
+            if (list == null) {
+                this.setMessage(ActionResult.WARNING, "cataloging.import.error.invalid_file");
+            } else if (list.getSuccess() == 0) {
+                this.setMessage(ActionResult.WARNING, "cataloging.import.error.no_record_found");
+            } else {
+                putOpt("data", list.toJSONObject());
+            }
+        } catch (Z3950SearchException e) {
+            logger.warn("Z39.50 search failed", e);
+            this.setMessage(ActionResult.WARNING, e.getMessage());
+        }
+    }
+
+    private void populateExistingIdentifiers(ImportDTO list) {
+        if (list == null) {
+            return;
+        }
+
+        List<String> isbnList = new ArrayList<>();
+        List<String> issnList = new ArrayList<>();
+        List<String> isrcList = new ArrayList<>();
+
+        for (RecordDTO dto : list.getRecordList()) {
+            if (dto instanceof BiblioRecordDTO biblioRecordDTO) {
+
+                if (StringUtils.isNotBlank(biblioRecordDTO.getIsbn())) {
+                    isbnList.add(biblioRecordDTO.getIsbn());
+                } else if (StringUtils.isNotBlank(biblioRecordDTO.getIssn())) {
+                    issnList.add(biblioRecordDTO.getIssn());
+                } else if (StringUtils.isNotBlank(biblioRecordDTO.getIsrc())) {
+                    isrcList.add(biblioRecordDTO.getIsrc());
+                }
+            }
+        }
+
+        if (isbnList.size() > 0) {
+            list.setFoundISBN(indexingBO.searchExactTerms(RecordType.BIBLIO, 5, isbnList));
+        }
+
+        if (issnList.size() > 0) {
+            list.setFoundISSN(indexingBO.searchExactTerms(RecordType.BIBLIO, 6, issnList));
+        }
+
+        if (isrcList.size() > 0) {
+            list.setFoundISRC(indexingBO.searchExactTerms(RecordType.BIBLIO, 7, isrcList));
+        }
     }
 
     public void saveImport(ExtendedRequest request, ExtendedResponse response) {
@@ -246,5 +287,15 @@ public class Handler extends AbstractHandler {
     @Autowired
     public void setImportBO(ImportBO importBO) {
         this.importBO = importBO;
+    }
+
+    @Autowired
+    public void setZ3950AddressDAO(Z3950AddressDAO z3950AddressDAO) {
+        this.z3950AddressDAO = z3950AddressDAO;
+    }
+
+    @Autowired
+    public void setZ3950SearchService(Z3950SearchService z3950SearchService) {
+        this.z3950SearchService = z3950SearchService;
     }
 }

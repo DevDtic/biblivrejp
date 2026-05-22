@@ -1,4 +1,3 @@
-<%@page import="biblivre.core.utils.Constants"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" %>
 <%@ taglib prefix="layout" uri="/WEB-INF/tlds/layout.tld" %>
 <%@ taglib prefix="i18n" uri="/WEB-INF/tlds/translations.tld" %>
@@ -36,6 +35,44 @@
 
 				<div class="search_button_div">
 					<a class="button arrow_right main_button" onclick="Import.upload(this);"><i18n:text key="cataloging.import.upload_button" /></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="selection_box">
+			<div class="title"><input type="radio" name="source" id="source_search"/> <label for="source_search"><i18n:text key="cataloging.import.source_search_title" /></label></div>
+			<div class="subtitle"><i18n:text key="cataloging.import.source_search_subtitle" param1="100" /></div>
+			<div class="body">
+				<div class="search_input_div">
+					<label for="search_query"><i18n:text key="search.common.containing_text" /></label>
+					<input type="text" name="search_query" id="search_query" />
+				</div>
+
+				<div class="search_attribute_div">
+					<label for="search_attribute"><i18n:text key="search.common.on_the_field" /></label>
+					<select name="search_attribute" id="search_attribute">
+						<option value="title"><i18n:text key="search.bibliographic.title" /></option>
+						<option value="author"><i18n:text key="search.bibliographic.author" /></option>
+						<option value="subject"><i18n:text key="search.bibliographic.subject" /></option>
+						<option value="isbn"><i18n:text key="search.bibliographic.isbn" /></option>
+						<option value="issn"><i18n:text key="search.bibliographic.issn" /></option>
+						<option value="any"><i18n:text key="search.common.all_fields" /></option>
+					</select>
+				</div>
+
+				<div class="search_server_div">
+					<label for="search_server"><i18n:text key="search.common.library" /></label>
+					<select name="search_server" id="search_server">
+						<c:forEach var="server" items="${requestScope.z3950Servers}">
+							<option value="${server.id}">${server.name}</option>
+						</c:forEach>
+					</select>
+				</div>
+
+				<div class="clear"></div>
+
+				<div class="search_button_div">
+					<a class="button arrow_right main_button" onclick="Import.search(this);"><i18n:text key="cataloging.import.search_button" /></a>
 				</div>
 			</div>
 		</div>

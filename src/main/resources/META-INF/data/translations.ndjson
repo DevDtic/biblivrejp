@@ -6351,3 +6351,18 @@
 {"language":"en-US","key":"cataloging.import.error.file_upload_error","text":"Couldn't upload file. Please contact the administrator to analyze thisproblem.","user_created":false}
 {"language":"pt-BR","key":"cataloging.import.error.file_upload_error","text":"Não foi possível fazer upload do arquivo. Por favor, contacte o administrador do sistema para anlizar este problema.","user_created":false}
 {"language":"es","key":"cataloging.import.error.file_upload_error","text":"No ha sido posible subir el archivo. Por favor, contacta el administrador del sistema para analizar este problema.","user_created":false}
+{"language":"pt-BR","key":"cataloging.import.error.z3950_client_not_found","text":"Não foi possível executar o cliente Z39.50. Verifique se o yaz-client está instalado no servidor.","user_created":false}
+{"language":"en-US","key":"cataloging.import.error.z3950_client_not_found","text":"Could not run the Z39.50 client. Check whether yaz-client is installed on the server.","user_created":false}
+{"language":"es","key":"cataloging.import.error.z3950_client_not_found","text":"No fue posible ejecutar el cliente Z39.50. Verifique si yaz-client está instalado en el servidor.","user_created":false}
+{"language":"pt-BR","key":"cataloging.import.error.z3950_search","text":"Falha ao realizar a pesquisa Z39.50.","user_created":false}
+{"language":"en-US","key":"cataloging.import.error.z3950_search","text":"Z39.50 search failed.","user_created":false}
+{"language":"es","key":"cataloging.import.error.z3950_search","text":"Falla al realizar la búsqueda Z39.50.","user_created":false}
+{"language":"pt-BR","key":"cataloging.import.error.z3950_server_not_found","text":"Servidor Z39.50 não encontrado.","user_created":false}
+{"language":"en-US","key":"cataloging.import.error.z3950_server_not_found","text":"Z39.50 server not found.","user_created":false}
+{"language":"es","key":"cataloging.import.error.z3950_server_not_found","text":"Servidor Z39.50 no encontrado.","user_created":false}
+{"language":"pt-BR","key":"cataloging.import.error.z3950_timeout","text":"A pesquisa Z39.50 demorou demais e foi interrompida.","user_created":false}
+{"language":"en-US","key":"cataloging.import.error.z3950_timeout","text":"The Z39.50 search took too long and was interrupted.","user_created":false}
+{"language":"es","key":"cataloging.import.error.z3950_timeout","text":"La búsqueda Z39.50 tardó demasiado y fue interrumpida.","user_created":false}
+{"language":"pt-BR","key":"search.common.all_fields","text":"Todos os campos","user_created":false}
+{"language":"en-US","key":"search.common.all_fields","text":"All fields","user_created":false}
+{"language":"es","key":"search.common.all_fields","text":"Todos los campos","user_created":false}

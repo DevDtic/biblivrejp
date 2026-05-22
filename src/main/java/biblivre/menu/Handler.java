@@ -30,6 +30,7 @@ import biblivre.cataloging.RecordDTO;
 import biblivre.cataloging.TabFieldsBO;
 import biblivre.cataloging.bibliographic.BiblioRecordBO;
 import biblivre.cataloging.enums.RecordType;
+import biblivre.cataloging.z3950.Z3950AddressDAO;
 import biblivre.circulation.user.UserBO;
 import biblivre.circulation.user.UserDTO;
 import biblivre.circulation.user.UserFieldBO;
@@ -61,6 +62,7 @@ public class Handler extends AbstractHandler {
     private TabFieldsBO tabFieldsBO;
     private LanguageBO languageBO;
     private SchemaBO schemaBO;
+    private Z3950AddressDAO z3950AddressDAO;
 
     @Autowired private MenuPropertiesService menuPropertiesService;
 
@@ -410,6 +412,8 @@ public class Handler extends AbstractHandler {
     }
 
     public void catalogingImport(ExtendedRequest request, ExtendedResponse response) {
+        request.setAttribute("z3950Servers", z3950AddressDAO.list());
+
         setJspURL("/WEB-INF/jsp/cataloging/import.jsp");
     }
 
@@ -466,5 +470,10 @@ public class Handler extends AbstractHandler {
     @Autowired
     public void setSchemaBO(SchemaBO schemaBO) {
         this.schemaBO = schemaBO;
+    }
+
+    @Autowired
+    public void setZ3950AddressDAO(Z3950AddressDAO z3950AddressDAO) {
+        this.z3950AddressDAO = z3950AddressDAO;
     }
 }

@@ -10,6 +10,7 @@ RUN apt-get update \
 	&& /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y \
 	&& apt install -y \
 	postgresql-client-16 \
+	yaz \
 	&& rm -rf /var/cache/apk/*
 RUN rm -rf "${CATALINA_HOME}/webapps/ROOT"
 COPY --from=build /app/target/Biblivre6/WEB-INF/tags ${CATALINA_HOME}/webapps/bibliotecajp/WEB-INF/tags

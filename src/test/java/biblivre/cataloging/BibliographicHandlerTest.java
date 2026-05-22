@@ -1,3 +1,3 @@
-import static org.junit.jupiter.api.Assertions.*;
+package biblivre.cataloging;
 
 class BibliographicHandlerTest {}
