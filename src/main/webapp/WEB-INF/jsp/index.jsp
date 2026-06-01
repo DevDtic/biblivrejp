@@ -53,6 +53,26 @@ ConfigurationBO configurationBO = (ConfigurationBO) request.getAttribute("config
 			<fieldset>
 				<legend><i18n:text key="text.multi_schema.select_library" /></legend>
 				<%
+					String publicPath = request.getHeader("X-Forwarded-Prefix");
+
+					if (publicPath == null || publicPath.trim().isEmpty()) {
+						publicPath = request.getContextPath();
+					}
+
+					if (publicPath == null) {
+						publicPath = "";
+					}
+
+					publicPath = publicPath.trim();
+
+					while (publicPath.endsWith("/")) {
+						publicPath = publicPath.substring(0, publicPath.length() - 1);
+					}
+
+					if (!publicPath.isEmpty() && !publicPath.startsWith("/")) {
+						publicPath = "/" + publicPath;
+					}
+
 					for (final SchemaDTO schema : (Collection<SchemaDTO>) request.getAttribute("schemas")) {
 						if (schema.isDisabled()) {
 							continue;
@@ -61,9 +81,11 @@ ConfigurationBO configurationBO = (ConfigurationBO) request.getAttribute("config
 						String currentSchema = SchemaThreadLocal.remove();
 
 				        SchemaThreadLocal.setSchema(schema.getSchema());
+
+						String schemaHref = publicPath.isEmpty() ? schema.getSchema() + "/" : publicPath + "/" + schema.getSchema() + "/";
 				%>
 							<div class="library">
-								<a href="<%= schema.getSchema() %>/"><%= configurationBO.getHtml(Constants.CONFIG_TITLE) %></a>
+								<a href="<%= schemaHref %>"><%= configurationBO.getHtml(Constants.CONFIG_TITLE) %></a>
 								<div class="subtitle"><%= configurationBO.getHtml(Constants.CONFIG_SUBTITLE) %></div>
 							</div>
 				<%
