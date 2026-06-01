@@ -41,7 +41,7 @@ sudo -u postgres psql biblivre4 < sql/biblivre4.sql
 #### Deploying the WAR file
 Copy the generated Biblivre6.war file to the webapps folder inside the Tomcat installation. This will make Tomcat deploy the application automatically to the Biblivre6 context. So after deploying you can access the application at http://localhost:8080/Biblivre6.
 
-The default user is admin and the default password is abracadabra.
+The default user is admin and the default password is admin@123.
 
 ### Docker Compose
 
@@ -52,7 +52,7 @@ After installing the dependencies, download or clone (using git) this repository
 On the project root folder, run `mvn clean package -P docker-compose`.
 It will take around 5 minutes, but it depends on the processing power of the computer and the available Internet bandwidth to download dependencies if needed. After all deploy process is done, you can access Biblivre at `http://localhost`.
 
-The default user is admin and the default password is abracadabra.
+The default user is admin and the default password is admin@123.
 
 #### Modifying and debugging Biblivre
 The `developer` profile will activate the debug flag to allow you to debug Biblivre remotely. It will also execute the tests automatically (which requires Docker to be installed and running in your machine). If you'd like to skip the tests, you can add the `-Dmaven.test.skip=true` option to the `mvn` command (like in `mvn clean package -P developer -Dmaven.test.skip=true`). The `docker-compose` profile already maps the port 8000 to the host and adds the debug options to the Tomcat server that runs in the container.
@@ -63,7 +63,7 @@ The following variables are used in Biblivre and can be set on the .env file:
 
 * `APP_HTTP_HOST_PORT` (HTTP access port to Biblivre app; default: 8080)
 * `APP_DEBUG_HOST_PORT` (debug port (JPDA); default: 8000)
-* `POSTGRES_PASSWORD` (password for the database; default "abracadabra")
+* `POSTGRES_PASSWORD` (password for the database; default "admin@123")
 * `POSTGRES_DB` (database name; default "biblivre4")
 * `DATABASE_HOST_PORT` (database host port; default: 5432)
 * `DATABASE_HOST_NAME` (database hostname; default: "database", which is also the hostname of the container that hosts PostgreSQL)

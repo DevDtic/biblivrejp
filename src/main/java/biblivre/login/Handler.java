@@ -19,6 +19,24 @@
  ******************************************************************************/
 package biblivre.login;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.stereotype.Component;
+
 import biblivre.administration.backup.BackupBO;
 import biblivre.administration.backup.BackupDTO;
 import biblivre.administration.indexing.IndexingBO;
@@ -35,22 +53,6 @@ import biblivre.core.utils.TextUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.security.web.context.SecurityContextRepository;
-import org.springframework.stereotype.Component;
 
 @Component
 public class Handler extends AbstractHandler {
@@ -169,7 +171,7 @@ public class Handler extends AbstractHandler {
         loginBO.update(login);
 
         boolean warningPassword =
-                newPassword.equals("abracadabra") && login.getLogin().equals("admin");
+                newPassword.equals("admin@123") && login.getLogin().equals("admin");
         request.setScopedSessionAttribute("system_warning_password", warningPassword);
 
         setMessage(ActionResult.SUCCESS, "login.password.success");
@@ -211,7 +213,7 @@ public class Handler extends AbstractHandler {
     }
 
     private void _checkDefaultPassword(ExtendedRequest request, String password) {
-        boolean warningPassword = password.equalsIgnoreCase("abracadabra");
+        boolean warningPassword = password.equalsIgnoreCase("admin@123");
         request.setScopedSessionAttribute("system_warning_password", warningPassword);
     }
 

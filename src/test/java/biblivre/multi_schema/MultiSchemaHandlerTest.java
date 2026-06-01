@@ -1,7 +1,17 @@
 package biblivre.multi_schema;
 
+import java.io.IOException;
+
+import org.jetbrains.annotations.NotNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import biblivre.AbstractContainerDatabaseTest;
 import biblivre.TestDatasourceConfiguration;
@@ -10,15 +20,6 @@ import biblivre.core.ExtendedResponse;
 import biblivre.core.SchemaThreadLocal;
 import biblivre.core.configurations.ConfigurationBO;
 import biblivre.login.LoginBO;
-import java.io.IOException;
-import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
@@ -42,7 +43,7 @@ class MultiSchemaHandlerTest extends AbstractContainerDatabaseTest {
 
             SchemaThreadLocal.setSchema(schemaName);
 
-            assertNotNull(loginBO.login("admin", "abracadabra"));
+            assertNotNull(loginBO.login("admin", "admin@123"));
         } catch (Exception e) {
             fail(e);
         }

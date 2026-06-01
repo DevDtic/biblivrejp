@@ -22,13 +22,16 @@ package biblivre.core.utils;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
+
 import javax.measure.MetricPrefix;
 import javax.measure.Quantity;
 import javax.measure.Unit;
 import javax.measure.quantity.Length;
+
 import org.apache.commons.lang3.time.DateParser;
 import org.apache.commons.lang3.time.DatePrinter;
 import org.apache.commons.lang3.time.FastDateFormat;
+
 import tech.units.indriya.unit.Units;
 
 public class Constants {
@@ -113,7 +116,7 @@ public class Constants {
     public static final String PGDUMP_PATH = "PGDUMP_PATH";
     public static final String SHOW_ALPHA_BANNER = "SHOW_ALPHA_BANNER";
     public static final String DEFAULT_DATABASE_NAME = "biblivre4";
-    public static final String DEFAULT_DATABASE_PASSWORD = "abracadabra";
+    public static final String DEFAULT_DATABASE_PASSWORD = "admin@123";
     public static final String DEFAULT_DATABASE_USERNAME = "biblivre";
 
     public static final char RECORD_SEPARATOR = 0x1e;
