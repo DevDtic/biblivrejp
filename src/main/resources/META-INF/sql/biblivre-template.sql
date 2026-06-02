@@ -7517,7 +7517,7 @@ INSERT INTO bib4template.holding_form_subfields VALUES ('856', 'y', false, true,
 -- Data for Name: logins; Type: TABLE DATA; Schema: bib4template; Owner: biblivre
 --
 
-INSERT INTO bib4template.logins VALUES (1, 'admin', true, 'C4wx3TpMHnSwdk1bUQ/V6qwAQmw=', '2014-05-18 15:46:31.632', 1, '2014-05-18 15:46:31.632', NULL, NULL, NULL);
+INSERT INTO bib4template.logins VALUES (1, 'admin', true, 'F8ObG2gGBgCAJoda/jXHl+FJDFM=', '2014-05-18 15:46:31.632', 1, '2014-05-18 15:46:31.632', NULL, NULL, NULL);
 
 
 --

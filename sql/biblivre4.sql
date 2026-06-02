@@ -2187,7 +2187,7 @@ general.title	Biblivre 6	string	t	2022-12-04 11:05:55.5474	1
 --
 
 COPY global.logins (id, login, employee, password, created, created_by, modified, modified_by, password_salt, salted_password) FROM stdin;
-1	admin	t	C4wx3TpMHnSwdk1bUQ/V6qwAQmw=	2013-04-13 13:38:46.652058	\N	2014-06-21 11:40:36.422497	1	\N	\N
+1	admin	t	F8ObG2gGBgCAJoda/jXHl+FJDFM=	2013-04-13 13:38:46.652058	\N	2014-06-21 11:40:36.422497	1	\N	\N
 \.
 
 
@@ -14403,7 +14403,7 @@ COPY single.lendings (id, holding_id, user_id, previous_lending_id, expected_ret
 --
 
 COPY single.logins (id, login, employee, password, created, created_by, modified, modified_by, password_salt, salted_password) FROM stdin;
-1	admin	t	C4wx3TpMHnSwdk1bUQ/V6qwAQmw=	2014-05-18 15:46:31.632	1	2014-05-18 15:46:31.632	\N	\N	\N
+1	admin	t	F8ObG2gGBgCAJoda/jXHl+FJDFM=	2014-05-18 15:46:31.632	1	2014-05-18 15:46:31.632	\N	\N	\N
 \.
 
 
