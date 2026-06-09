@@ -33,6 +33,10 @@
 				<static:script fileName="globalize.js" />
 				<static:culture_script />
 
+				<script type="text/javascript">
+					var Biblivre = Biblivre || {};
+					Biblivre.schema = '<%= schema.replace("\\", "\\\\").replace("'", "\\'") %>';
+				</script>
 				<static:script fileName="biblivre.core.js" />
 				<static:script fileName="${requestScope.translationsMap.getCacheFileName()}" />
 

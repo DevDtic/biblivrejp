@@ -32,6 +32,10 @@
 				<script type="text/javascript" >Globalize.culture('<i18n:text key="language_code" />'); </script>
 				<script type="text/javascript" >Globalize.culture().numberFormat.currency.symbol = '${Configurations.getString(schema, Constants.CONFIG_CURRENCY)}';</script>
 
+				<script type="text/javascript">
+					var Biblivre = Biblivre || {};
+					Biblivre.schema = '${schema}';
+				</script>
 				<static:script fileName="biblivre.core.js" />
 				<static:script fileName="${requestScope.translationMap.cacheFileName}" />
 	

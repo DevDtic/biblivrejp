@@ -1399,6 +1399,10 @@ PageHelp.show = function () {
 
 	$.ajaxSetup({
 		beforeSend: function (xhr, settings) {
+			if (window.Biblivre && Biblivre.schema) {
+				xhr.setRequestHeader('X-Biblivre-Schema', Biblivre.schema);
+			}
+
 			xhr.loadingHolder = settings.loadingHolder;
 			xhr.loadingText = settings.loadingText;
 
